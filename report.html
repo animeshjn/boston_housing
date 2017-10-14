@@ -12205,7 +12205,7 @@ Training and testing split was successful.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong> Splitting dataset into training and testing set ensures that we are not testing the model with the same data
-                 we have trained it with. Since if we don't split and test it with the training data then it will overfit the model. If we split the data in a way that there is more testing data than training data then it will be an underfitting model since the model is not trained enough and it will have poor predictions, low variance and high bias</p>
+ we have trained it with. Test set of the data enables us to use real data to measure the performance of the data model. Hence the performance measure by the test set is more trust worthy because it is the data which is not used for training the model.</p>
 
 </div>
 </div>
@@ -13291,9 +13291,10 @@ Think about the pros and cons of adding more training points based on if the tra
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
 <ol>
-<li><strong>Max Depth 1:</strong> Less depth means less training data and higher bias on the features (less features are trained), since it is converging between 0.4 and 0.6</li>
-<li><strong>Maximum Depth: 3 </strong> the training data is increased in comparison with the graph 1 (Max depth =1) Which leads to the converging point of the training data to be much higher than the previous graph converging around 0.8 - 1 which is ideal convergence and good split ratio.</li>
-<li><strong>Maximum Depth: 6 and 10</strong> the training score is falling down and testing score is going up (no convergence) which means testing set is not good since maximum data is used in the training set giving high variance</li>
+<li><strong>Max Depth 1:</strong> Less depth means less features are trained and higher bias on the features (less features are trained), since it is converging between 0.4 and 0.6 hence it doesn't fit the data properly. Both training and validation scores are low.</li>
+<li><strong>Maximum Depth: 3 </strong> the complexity is increased in comparison with the graph 1 (Max depth =1) Which leads to the converging point of the training data to be much higher than the previous graph converging around 0.8 - 1 which is ideal convergence and good split ratio. Both training and validation scores tend to be near to one and converging.</li>
+<li><strong>Maximum Depth: 6 and 10</strong> the training score is falling down and testing score is going up (no convergence) which means giving high variance in the data. Training scores here are quite high but testing scores are far low causing higher variance.</li>
+<li>Higher Bias means that the model has a lot of difference between expected and actual values that is testing and training curves lie quite a part. Whereas the higher variance means that same data point is having variable results due to variance in the data.  </li>
 </ol>
 
 </div>
@@ -13798,9 +13799,9 @@ Ec9Q0hMREc9Q0hMREc9Q0hMREc/4f8afc4ZYizA6AAAAAElFTkSuQmCC
 <ul>
 <li>When the model is trained with maximum depth of 1, the model suffers from higher bias (since it is trained with less features)</li>
 <li>When model is trained with maximum depth of 10 it suffers higher variance because it is trained with many features.</li>
-<li>The high variance gives no convergance which means that the model might be over trained and the testing set is not good enough. This will result in overfitting and the model tends to memorize the training data. </li>
-<li>At Max Depth 1 the model tends to underfitting and less sensitive to the different features. </li>
-<li>The depth 3  is looking appropriate from the graph because of proper convergence (more close to 1 ) and less variance and also not as much biased as with max depth </li>
+<li>The high variance gives no convergance which means that the model might be over trained and the testing set is not good enough. This will result in overfitting and the model tends to memorize the training data. here the validation scores are low but the training score are high.</li>
+<li>At Max Depth 1 the model tends to underfitting and less sensitive to the different features, which makes both training and validation scores low.</li>
+<li>The depth 3  is looking appropriate from the graph because of proper convergence (more close to 1 ) and less variance and also not as much biased as with max depth, this is a balance between training and validation score.</li>
 </ul>
 
 </div>
@@ -13902,8 +13903,12 @@ Ec9Q0hMREc9Q0hMREc9Q0hMREc/4f8afc4ZYizA6AAAAAElFTkSuQmCC
 <li>However if we reduce the training set then the model will be inaccurate since we are giving out data to cross validation.</li>
 <li>So we use K-fold cross validation in which we break the data into K buckets and train the model K times</li>
 <li>In each of the K times we keep 1 bucket as testing set (validating set) and remaining (k <strong>-</strong> 1) as the training set. </li>
-<li>In Grid search the K-fold cross validation ensures that the F1 score is accurate.</li>
+<li>Then the average performance metric score across all K trials is computed.</li>
+<li>In Grid search the K-fold cross validation ensures that the performance metric is accurate.</li>
 <li>K fold cross validation also ensures that the model is neither underfitting nor overfitting. </li>
+<li>Since we use K trials, we use most of the data for the training and also test it with the real dataset</li>
+<li>If we train it only once then the performance metric might be inaccurate, and also the data in testing set is never considered for testing the data, might be taking out important set. </li>
+<li>If we were to do parameter tuning in only one data split then it might be inaccurate since we will miss the test split to train the model. </li>
 </ul>
 
 </div>
